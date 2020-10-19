@@ -48,8 +48,29 @@ func (ctrl *Controller) GetSpotsHandler(cxt *gin.Context) {
 	)
 } 
 
-func (ctrl *Controller) GetDetoursHandler(cxt *gin.Context) {
+func (ctrl *Controller) GetDetourHandler(cxt *gin.Context) {
+	var request model.GetDetourRequest
+	err := cxt.BindJSON(&request)
+	if err != nil {
+		utils.LogFatal(err)
+		cxt.JSON(
+			http.StatusInternalServerError,
+			utils.MakeErrorResponse(
+				http.StatusInternalServerError,
+				"Internal Server Error",
+				"Faild bind request JSON",
+			),
+		)
+	}
+
+	// TODO: Exec SQL query
+	detour := model.Detour{}
+
+	cxt.JSON(
+		http.StatusOK,
+		utils.MakeGetDetourResponse(detour),
+	)
 }
 
 func (ctrl *Controller) AddSpotHandler(cxt *gin.Context) {
-} 
+}
