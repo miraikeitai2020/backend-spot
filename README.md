@@ -6,7 +6,7 @@
 
 <img src="./img/michishirube.png" width="400" alt="architecture" />
 
-ミライケータイプロジェクト2020のbackend-spot APIです．  
+`backend-spot`APIはミライケータイプロジェクト2020 [mirai-cluster](https://github.com/miraikeitai2020/mirai-cluster)のサービスの一つです． 
 APIの主な機能は  
 - スポットの選出
 - 寄り道スポットの選出
@@ -16,7 +16,7 @@ APIの主な機能は
 ### Endpoints
 |Method|URL|Description|
 |:-:|:-:|:-|
-|POST|/query/spots|Get spot infomation|
+|POST|/query/spot|Get spot infomation|
 |POST|/query/detour|Get detour infomation|
 |POST|/mutation/add/spot|Add spot infomation|
 
