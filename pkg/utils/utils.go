@@ -28,3 +28,9 @@ func MakeGetDetourResponse(detour model.Detour) model.GetDetourResponse {
 		Detour: detour,
 	}
 }
+
+func MakeMutationResponse(stat bool) model.MutationResponse {
+	return model.MutationResponse{
+		Status: stat,
+	}
+}
