@@ -13,6 +13,8 @@ build:
 run:
 	$(GO_RUN) main.go
 docker-build:
+	cp build/Dockerfile ./
 	$(DOCKER_BUILD) ./ -t miraikeitai2020/spot:0.1.0
+	rm Dockerfile
 docker-run:
 	$(DOCKER_RUN) -d -p 8080:8080 miraikeitai2020/spot:0.1.0
