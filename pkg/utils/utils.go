@@ -17,9 +17,9 @@ func MakeErrorResponse(code int, msg, desc string) model.Error {
 	}
 }
 
-func MakeGetSpotsResponse(spots []model.Spot) model.GetSpotsResponse {
-	return model.GetSpotsResponse{
-		Spots: spots,
+func MakeGetSpotResponse(spot model.Spot) model.GetSpotResponse {
+	return model.GetSpotResponse{
+		Spot: spot,
 	}
 }
 
