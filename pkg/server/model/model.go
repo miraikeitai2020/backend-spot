@@ -21,6 +21,27 @@ type Spot struct {
 	Longitude	float64	`json:"longitude"`
 }
 
+type GetDetourRequest struct {
+	Latitude	float64	`json:"latitude"`
+	Longitude	float64	`json:"longitude"`
+	// spot_required
+	// スポットへの所要時間
+	Walktime	int		`json:"walktime"`
+	Emotion		int		`json:"emotion"`
+}
+
+type GetDetourResponse struct {
+	Detour	Detour	`json:"detour"`
+}
+
+type Detour struct {
+	Name		string	`json:"name"`
+	Image		string	`json:"image"`
+	Description	string	`json:"description"`
+	Latitude	float64	`json:"latitude"`
+	Longitude	float64	`json:"longitude"`
+}
+
 type Error struct {
 	Code		int		`json:"code"`
 	Message		string	`json:"message"`
