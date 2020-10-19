@@ -42,8 +42,21 @@ type Detour struct {
 	Longitude	float64	`json:"longitude"`
 }
 
+// image: [Int!], latitude: Float!, longitude: Float!
+type AddSpotRequest struct {
+	Name		string	`json:"name"`
+	Description	string	`json:"description"`
+	Image		string	`json:"image"`
+	Latitude	float64	`json:"latitude"`
+	Longitude	float64	`json:"longitude"`
+}
+
 type Error struct {
 	Code		int		`json:"code"`
 	Message		string	`json:"message"`
 	Description	string	`json:"description"`
+}
+
+type MutationResponse struct {
+	Status	bool	`json:"status"`
 }
