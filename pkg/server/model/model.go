@@ -1,6 +1,6 @@
 package model
 
-type GetSpotsRequest struct {
+type GetSpotRequest struct {
 	Latitude	float64	`json:"latitude"`
 	Longitude	float64	`json:"longitude"`
 	// spot_required
@@ -9,8 +9,8 @@ type GetSpotsRequest struct {
 	Emotion		int		`json:"emotion"`
 }
 
-type GetSpotsResponse struct {
-	Spots	[]Spot	`json:"spots"`
+type GetSpotResponse struct {
+	Spot	Spot	`json:"spot"`
 }
 
 type Spot struct {
