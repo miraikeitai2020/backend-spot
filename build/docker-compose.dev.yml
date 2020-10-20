@@ -17,9 +17,6 @@ services:
             - 3306:3306
         environment:
             MYSQL_ROOT_PASSWORD: 'miraiketai2020_admin'
-            # MYSQL_DATABASE: 'michishirube'
-            MYSQL_USER: 'miraiketai2020'
-            MYSQL_PASSWORD: 'miraiketai2020'
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
             - ../database/my.cnf:/etc/mysql/conf.d/my.cnf
