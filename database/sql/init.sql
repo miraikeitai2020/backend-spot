@@ -2,6 +2,10 @@ DROP DATABASE IF EXISTS michishirube;
 CREATE DATABASE michishirube;
 USE michishirube;
 
+---- create user ----
+CREATE USER IF NOT EXISTS 'miraiketai2020'@'%' IDENTIFIED BY 'miraiketai2020';
+GRANT ALL ON michishirube.* TO miraiketai2020;
+
 ---- drop ----
 DROP TABLE IF EXISTS `spots`;
 DROP TABLE IF EXISTS `emotions`;
