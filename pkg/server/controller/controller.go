@@ -23,8 +23,8 @@ func Init(db *gorm.DB) Controller {
 	}
 }
 
-func (ctrl *Controller) GetSpotsHandler(cxt *gin.Context) {
-	var request model.GetSpotsRequest
+func (ctrl *Controller) GetSpotHandler(cxt *gin.Context) {
+	var request model.GetSpotRequest
 	err := cxt.BindJSON(&request)
 	if err != nil {
 		utils.LogFatal(err)
@@ -39,11 +39,11 @@ func (ctrl *Controller) GetSpotsHandler(cxt *gin.Context) {
 	}
 
 	// TODO: Exec SQL query
-	spots := []model.Spot{}
+	spot := model.Spot{}
 
 	cxt.JSON(
 		http.StatusOK,
-		utils.MakeGetSpotsResponse(spots),
+		utils.MakeGetSpotResponse(spot),
 	)
 } 
 
