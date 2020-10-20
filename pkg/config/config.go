@@ -6,17 +6,17 @@ import(
 	"fmt"
 	"time"
 	"math"
+
+	"github.com/kelseyhightower/envconfig"
 )
 
 type dataBaseConfig struct {
-	User string
-	Pass string
-	IP   string
-	Port string
-	Name string
+	User string `envconfig:"DB_USER" default:"miraiketai2020"`
+	Pass string `envconfig:"DB_PASS" default:"miraiketai2020"`
+	IP   string `envconfig:"DB_IP" default:"localhost"`
+	Port string `envconfig:"DB_PORT" default:"3306"`
+	Name string `envconfig:"DB_NAME" default:"michishirube"`
 }
-
-var c dataBaseConfig
 
 const accessTokenTemplate = "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local"
 
@@ -29,36 +29,9 @@ func GetRouterAddr() (addr string) {
 	return
 }
 
-func checkElements(c dataBaseConfig) error {
-	if c.User == "" {
-		return fmt.Errorf("DB_USER value did not exist")
-	}
-	if c.Pass == "" {
-		return fmt.Errorf("DB_PASS value did not exist")
-	}
-	if c.IP == "" {
-		return fmt.Errorf("DB_IP value did not exist")
-	}
-	if c.Port == "" {
-		return fmt.Errorf("DB_PORT value did not exist")
-	}
-	if c.Name == "" {
-		return fmt.Errorf("DB_NAME value did not exist")
-	}
-	return nil
-}
-
 func GetConnectionToken() string {
-	c = dataBaseConfig {
-		User: os.Getenv("DB_USER"),
-		Pass: os.Getenv("DB_PASS"),
-		IP	: os.Getenv("DB_IP"),
-		Port: os.Getenv("DB_PORT"),
-		Name: os.Getenv("DB_NAME"),
-	}
-
-	err := checkElements(c)
-	if err != nil {
+	var c dataBaseConfig
+	if err := envconfig.Process("", &c); err != nil {
 		log.Fatal(err)
 	}
 
