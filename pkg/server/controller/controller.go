@@ -9,9 +9,10 @@ import(
 	// Import SQL driver
 	"github.com/jinzhu/gorm"
 
-	"github.com/miraikeitai2020/backend-spot/pkg/server/model"
-	"github.com/miraikeitai2020/backend-spot/pkg/utils"
 	"github.com/miraikeitai2020/backend-spot/pkg/spot"
+	"github.com/miraikeitai2020/backend-spot/pkg/utils"
+	"github.com/miraikeitai2020/backend-spot/pkg/database"
+	"github.com/miraikeitai2020/backend-spot/pkg/server/model"
 )
 
 type Controller struct {
@@ -101,10 +102,9 @@ func (ctrl *Controller) AddSpotHandler(cxt *gin.Context) {
 	}
 
 	// TODO: Exec SQL query
-	stat := true
-
+	database.InsertDetourInfoToDataBase(ctrl.DB, request)
 	cxt.JSON(
 		http.StatusOK,
-		utils.MakeMutationResponse(stat),
+		utils.MakeMutationResponse(true),
 	)
 }
