@@ -34,6 +34,19 @@ func spotCandidates(time int, lat, lon float64, s []model.SpotInfo) (spots []mod
 	return
 }
 
+func isWithinRangeDetour(time float64, lat, lon float64, s model.Detour) bool {
+	return calcUserDistance(lat, lon, s.Latitude, s.Longitude) / 80.0 < time
+}
+
+func detourCandidates(time float64, lat, lon float64, s []model.Detour) (detour []model.Detour) {
+	for _, v := range s {
+		if isWithinRangeDetour(time, lat, lon, v) {
+			detour = append(detour, v)
+		}
+	}
+	return
+} 
+
 func emotionFilter(emotion int, s []model.SpotInfo) model.Spot {
 	_s := model.SpotInfo{
 		Happiness: -1.0,
@@ -75,4 +88,8 @@ func emotionFilter(emotion int, s []model.SpotInfo) model.Spot {
 func Election(r model.GetSpotRequest, s []model.SpotInfo) model.Spot {
 	spots := spotCandidates(r.Walktime, r.Latitude, r.Longitude, s)
 	return emotionFilter(r.Emotion, spots)
+}
+
+func DetourElection(r model.GetDetourRequest, s []model.Detour) []model.Detour {
+	return detourCandidates(float64(r.Walktime)*0.9, (r.UserLatitude + r.SpotLatitude)/2.0, (r.UserLongitude + r.SpotLongitude)/2.0, s)
 }
