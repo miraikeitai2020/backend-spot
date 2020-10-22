@@ -7,7 +7,6 @@ import(
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	
-	"github.com/miraikeitai2020/backend-spot/pkg/spot"
 	"github.com/miraikeitai2020/backend-spot/pkg/uuid"
 	"github.com/miraikeitai2020/backend-spot/pkg/utils"
 	"github.com/miraikeitai2020/backend-spot/pkg/config"
