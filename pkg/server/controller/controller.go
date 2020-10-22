@@ -77,12 +77,11 @@ func (ctrl *Controller) GetDetourHandler(cxt *gin.Context) {
 		)
 	}
 
-	// TODO: Exec SQL query
-	detour := model.Detour{}
-
 	cxt.JSON(
 		http.StatusOK,
-		utils.MakeGetDetourResponse(detour),
+		utils.MakeGetDetourResponse(
+			database.ElectDetourInfo(ctrl.DB, request),
+		),
 	)
 }
 
@@ -101,7 +100,6 @@ func (ctrl *Controller) AddSpotHandler(cxt *gin.Context) {
 		)
 	}
 
-	// TODO: Exec SQL query
 	database.InsertDetourInfoToDataBase(ctrl.DB, request)
 	cxt.JSON(
 		http.StatusOK,
