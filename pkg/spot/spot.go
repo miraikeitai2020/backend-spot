@@ -36,10 +36,10 @@ func spotCandidates(time int, lat, lon float64, s []model.SpotInfo) (spots []mod
 
 func emotionFilter(emotion int, s []model.SpotInfo) model.Spot {
 	_s := model.SpotInfo{
-		Happiness: 0.0,
-		Natural: 0.0,
-		Sadness: 0.0,
-		Anger: 0.0,
+		Happiness: -1.0,
+		Natural: -1.0,
+		Sadness: -1.0,
+		Anger: -1.0,
 	}
 	// ここ改善よちアリ
 	// _s = _v の時のアルゴリズム
