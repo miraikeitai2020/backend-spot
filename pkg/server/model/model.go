@@ -1,7 +1,8 @@
 package model
 
-
-// SQL Query
+/*--------------------------------*/
+/*        SQL Query Format        */
+/*--------------------------------*/
 const(
 	QUERY_FORMAT_GET_SPOT = "SELECT spots.id, spots.name, spots.latitude, spots.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
 	QUERY_FORMAT_GET_DETOURS = "SELECT * FROM `detours`"
@@ -10,25 +11,16 @@ const(
 	QUERY_FORMAT_ADD_DETOURS_IMAGE = "INSERT INTO `images` (id, image) VALUES ( ?, ?)"
 )
 
-type GetSpotRequest struct {
-	Latitude	float64	`json:"latitude"`
-	Longitude	float64	`json:"longitude"`
-	// spot_required
-	// スポットへの所要時間
-	Walktime	int		`json:"walktime"`
-	Emotion		int		`json:"emotion"`
-}
-
-type GetSpotResponse struct {
-	Spot	Spot	`json:"spot"`
-}
-
+/*-----------------------------------*/
+/*     SQL Query Response Struct     */
+/*-----------------------------------*/
 type SpotInfo struct {
+	// `spot` table data
 	ID			string
 	Name		string
 	Latitude	float64
 	Longitude	float64
-	// emotion table
+	// `emotions` table data
 	Happiness	float64
 	Natural		float64
 	Sadness		float64
@@ -37,25 +29,9 @@ type SpotInfo struct {
 
 type Spot struct {
 	ID			string	`json:"id"`
-	// 保留カラム
 	Name		string	`json:"name"`
 	Latitude	float64	`json:"latitude"`
 	Longitude	float64	`json:"longitude"`
-}
-
-type GetDetourRequest struct {
-	SpotLatitude	float64	`json:"spot_latitude"`
-	SpotLongitude	float64	`json:"spot_longitude"`
-	UserLatitude	float64	`json:"user_latitude"`
-	UserLongitude	float64	`json:"user_longitude"`
-	// spot_required
-	// スポットへの所要時間
-	Walktime	int		`json:"walktime"`
-	Emotion		int		`json:"emotion"`
-}
-
-type GetDetourResponse struct {
-	Detour	[]Detour	`json:"detour"`
 }
 
 type Detour struct {
@@ -66,20 +42,31 @@ type Detour struct {
 	Longitude	float64	`json:"longitude"`
 }
 
-type AddSpotRequest struct {
-	Name		string	`json:"name"`
-	Description	string	`json:"description"`
-	Image		string	`json:"image"`
+/*--------------------------------*/
+/*     Handler Request Struct     */
+/*--------------------------------*/
+type GetSpotRequest struct {
 	Latitude	float64	`json:"latitude"`
 	Longitude	float64	`json:"longitude"`
+	// スポットへの所要時間
+	Walktime	int		`json:"walktime"`
+	Emotion		int		`json:"emotion"`
 }
 
-type Error struct {
-	Code		int		`json:"code"`
-	Message		string	`json:"message"`
+type GetDetourRequest struct {
+	SpotLatitude	float64	`json:"spot_latitude"`
+	SpotLongitude	float64	`json:"spot_longitude"`
+	UserLatitude	float64	`json:"user_latitude"`
+	UserLongitude	float64	`json:"user_longitude"`
+	// スポットへの所要時間
+	Walktime	int		`json:"walktime"`
+	Emotion		int		`json:"emotion"`
+}
+
+type AddSpotRequest struct {
+	Name		string	`json:"name"`
+	Image		string	`json:"image"`
 	Description	string	`json:"description"`
-}
-
-type MutationResponse struct {
-	Status	bool	`json:"status"`
+	Latitude	float64	`json:"latitude"`
+	Longitude	float64	`json:"longitude"`
 }
