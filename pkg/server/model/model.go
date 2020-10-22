@@ -4,7 +4,7 @@ package model
 // SQL Query
 var(
 	// "SELECT id, password FROM `users` WHERE id = ?"
-	QUERY_FORMAT_GET_SPOT = "SELECT * FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
+	QUERY_FORMAT_GET_SPOT = "SELECT spots.id, spots.name, spots.latitude, spots.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
 )
 
 type GetSpotRequest struct {
