@@ -25,7 +25,7 @@ func MakeGetSpotResponse(spot model.Spot) model.GetSpotResponse {
 	}
 }
 
-func MakeGetDetourResponse(detour model.Detour) model.GetDetourResponse {
+func MakeGetDetourResponse(detour []model.Detour) model.GetDetourResponse {
 	return model.GetDetourResponse{
 		Detour: detour,
 	}
