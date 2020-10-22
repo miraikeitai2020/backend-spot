@@ -1,5 +1,15 @@
 package model
 
+
+// SQL Query
+const(
+	QUERY_FORMAT_GET_SPOT = "SELECT spots.id, spots.name, spots.latitude, spots.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
+	QUERY_FORMAT_GET_DETOURS = "SELECT * FROM `detours`"
+	QUERY_FORMAT_ADD_DETOURS = "INSERT INTO `detours` (id, name, description, latitude, longitude) VALUES ( ?, ?, ?, ?, ?)"
+	QUERY_FORMAT_ADD_DETOURS_EMOTION = "INSERT INTO `emotions` (emotions.id, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger) VALUES ( ?, ?, ?, ?, ?)"
+	QUERY_FORMAT_ADD_DETOURS_IMAGE = "INSERT INTO `images` (id, image) VALUES ( ?, ?)"
+)
+
 type GetSpotRequest struct {
 	Latitude	float64	`json:"latitude"`
 	Longitude	float64	`json:"longitude"`
@@ -13,6 +23,18 @@ type GetSpotResponse struct {
 	Spot	Spot	`json:"spot"`
 }
 
+type SpotInfo struct {
+	ID			string
+	Name		string
+	Latitude	float64
+	Longitude	float64
+	// emotion table
+	Happiness	float64
+	Natural		float64
+	Sadness		float64
+	Anger		float64
+}
+
 type Spot struct {
 	ID			string	`json:"id"`
 	// 保留カラム
@@ -22,8 +44,10 @@ type Spot struct {
 }
 
 type GetDetourRequest struct {
-	Latitude	float64	`json:"latitude"`
-	Longitude	float64	`json:"longitude"`
+	SpotLatitude	float64	`json:"spot_latitude"`
+	SpotLongitude	float64	`json:"spot_longitude"`
+	UserLatitude	float64	`json:"user_latitude"`
+	UserLongitude	float64	`json:"user_longitude"`
 	// spot_required
 	// スポットへの所要時間
 	Walktime	int		`json:"walktime"`
@@ -31,7 +55,7 @@ type GetDetourRequest struct {
 }
 
 type GetDetourResponse struct {
-	Detour	Detour	`json:"detour"`
+	Detour	[]Detour	`json:"detour"`
 }
 
 type Detour struct {
@@ -42,7 +66,6 @@ type Detour struct {
 	Longitude	float64	`json:"longitude"`
 }
 
-// image: [Int!], latitude: Float!, longitude: Float!
 type AddSpotRequest struct {
 	Name		string	`json:"name"`
 	Description	string	`json:"description"`

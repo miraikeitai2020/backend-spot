@@ -18,3 +18,7 @@ docker-build:
 	rm Dockerfile
 docker-run:
 	$(DOCKER_RUN) -d -p 8080:8080 miraikeitai2020/spot:0.1.0
+compose-build:
+	docker-compose -f build/docker-compose.dev.yml up -d --build
+compose-clean:
+	docker-compose -f build/docker-compose.dev.yml down --rmi all --volumes
