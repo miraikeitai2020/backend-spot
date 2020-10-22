@@ -3,8 +3,10 @@ package model
 
 // SQL Query
 var(
-	// "SELECT id, password FROM `users` WHERE id = ?"
 	QUERY_FORMAT_GET_SPOT = "SELECT spots.id, spots.name, spots.latitude, spots.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
+	QUERY_FORMAT_ADD_DETOURS = "INSERT INTO `detours` (id, name, description, latitude, longitude) VALUES ( ?, ?, ?, ?, ?)"
+	QUERY_FORMAT_ADD_DETOURS_EMOTION = "INSERT INTO `emotions` (emotions.id, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger) VALUES ( ?, ?, ?, ?, ?)"
+	QUERY_FORMAT_ADD_DETOURS_IMAGE = "INSERT INTO `images` (id, image) VALUES ( ?, ?)"
 )
 
 type GetSpotRequest struct {
