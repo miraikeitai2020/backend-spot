@@ -1,5 +1,12 @@
 package model
 
+
+// SQL Query
+var(
+	// "SELECT id, password FROM `users` WHERE id = ?"
+	QUERY_FORMAT_GET_SPOT = "SELECT * FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
+)
+
 type GetSpotRequest struct {
 	Latitude	float64	`json:"latitude"`
 	Longitude	float64	`json:"longitude"`
@@ -11,6 +18,18 @@ type GetSpotRequest struct {
 
 type GetSpotResponse struct {
 	Spot	Spot	`json:"spot"`
+}
+
+type SpotInfo struct {
+	ID			string
+	Name		string
+	Latitude	float64
+	Longitude	float64
+	// emotion table
+	Happiness	float64
+	Natural		float64
+	Sadness		float64
+	Anger		float64
 }
 
 type Spot struct {
@@ -42,7 +61,6 @@ type Detour struct {
 	Longitude	float64	`json:"longitude"`
 }
 
-// image: [Int!], latitude: Float!, longitude: Float!
 type AddSpotRequest struct {
 	Name		string	`json:"name"`
 	Description	string	`json:"description"`
