@@ -11,6 +11,7 @@ import(
 
 	"github.com/miraikeitai2020/backend-spot/pkg/server/model"
 	"github.com/miraikeitai2020/backend-spot/pkg/utils"
+	"github.com/miraikeitai2020/backend-spot/pkg/spot"
 )
 
 type Controller struct {
@@ -38,12 +39,25 @@ func (ctrl *Controller) GetSpotHandler(cxt *gin.Context) {
 		)
 	}
 
-	// TODO: Exec SQL query
-	spot := model.Spot{}
+	// ここ脳死実装
+	spots := []model.SpotInfo{}
+	ctrl.DB.Raw(model.QUERY_FORMAT_GET_SPOT).Scan(&spots)
+	if len(spots) == 0 {
+		cxt.JSON(
+			http.StatusInternalServerError,
+			utils.MakeErrorResponse(
+				http.StatusInternalServerError,
+				"Internal Server Error",
+				"Spot is none in DB",
+			),
+		)
+	}
 
 	cxt.JSON(
 		http.StatusOK,
-		utils.MakeGetSpotResponse(spot),
+		utils.MakeGetSpotResponse(
+			spot.Election(request, spots),
+		),
 	)
 } 
 
