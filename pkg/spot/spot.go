@@ -96,7 +96,10 @@ func Election(r model.GetSpotRequest, s []model.SpotInfo) model.Spot {
 	spots := spotCandidates(float64(r.Walktime), r.Latitude, r.Longitude, s)
 	return emotionFilter(r.Emotion, spots)
 }
-
+func DetourElection_ex(r model.GetSpotRequest, s []model.DetourInfo) []model.Detour {
+	spots := spotCandidates(float64(r.Walktime), r.Latitude, r.Longitude, s)
+	return emotionFilter(r.Emotion, spots)
+}
 func DetourElection(r model.GetDetourRequest, s []model.Detour) []model.Detour {
 	return detourCandidates(float64(r.Walktime)*0.9, (r.UserLatitude + r.SpotLatitude)/2.0, (r.UserLongitude + r.SpotLongitude)/2.0, s)
 }

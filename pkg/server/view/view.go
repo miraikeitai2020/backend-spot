@@ -26,9 +26,9 @@ type GetDetourResponse struct {
 	Detours	[]model.Detour	`json:"detours"`
 }
 
-func ReturnGetDetourResponse(cxt *gin.Context, request model.GetDetourRequest, detour []model.Detour) {
+func ReturnGetDetourResponse(cxt *gin.Context, request model.GetDetourRequest, detour []model.DetourInfo) {
 	body := GetDetourResponse{
-		Detours: spot.DetourElection(request, detour),
+		Detours: spot.DetourElection_ex(request, detour),
 	}
 	cxt.JSON(http.StatusOK, body)
 }
