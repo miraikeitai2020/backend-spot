@@ -5,7 +5,7 @@ package model
 /*--------------------------------*/
 const(
 	QUERY_FORMAT_GET_SPOT = "SELECT spots.id, spots.name, spots.latitude, spots.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE spots.id = emotions.id GROUP BY spots.id"
-	QUERY_FORMAT_GET_DETOURS = "SELECT detour.id, detour.name, detour.latitude, detour.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `spots`, `emotions` WHERE detour.id = emotions.id GROUP BY detour.id"
+	QUERY_FORMAT_GET_DETOURS = "SELECT detours.id, detours.name, detours.latitude, detours.longitude, emotions.happiness, emotions.natural, emotions.sadness, emotions.anger FROM `detours`, `emotions` WHERE detours.id = emotions.id GROUP BY detours.id"
 	QUERY_FORMAT_ADD_DETOURS = "INSERT INTO `detours` (id, name, description, latitude, longitude) VALUES (?, ?, ?, ?, ?)"
 	QUERY_FORMAT_ADD_DETOURS_IMAGE = "INSERT INTO `images` (id, image) VALUES (?, ?)"
 	QUERY_FORMAT_ADD_DETOURS_EMOTIONS="INSERT INTO `emotions` (id,emotions.happiness,emotions.natural,emotions.sadness,emotions.anger) VALUES(?,?,?,?,?)"
