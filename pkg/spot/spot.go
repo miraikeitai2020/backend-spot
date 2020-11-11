@@ -59,19 +59,19 @@ func detourCandidates(time float64, lat, lon float64, s []model.DetourInfo) (det
 
 func comparisonValue(emotion int, _v, v model.SpotInfo) model.SpotInfo {
 	switch emotion {
-	case 1:
+	case 0:
 		if _v.Happiness < v.Happiness {
 			_v = v
 		}
-	case 2:
+	case 1:
 		if _v.Natural < v.Natural {
 			_v = v
 		}
-	case 3:
+	case 2:
 		if _v.Sadness < v.Sadness {
 			_v = v
 		}
-	case 4:
+	case 3:
 		if _v.Anger < v.Anger {
 			_v = v
 		}
@@ -80,21 +80,23 @@ func comparisonValue(emotion int, _v, v model.SpotInfo) model.SpotInfo {
 }
 func detourcomparisonValue(emotion int, v []model.DetourInfo) []model.DetourInfo {
 	switch emotion {
-	case 1:
+	case 0:
 		
 		sort.Slice(v,func(i,j int)bool{return v[i].Happiness<v[j].Happiness})
-	case 2:
+	
+	case 1:
 		
 		sort.Slice(v,func(i,j int)bool{return v[i].Natural<v[j].Natural})
+
+	case 2:
+	
+		sort.Slice(v,func(i,j int)bool{return v[i].Anger<v[j].Anger})
 
 	case 3:
 		
 		sort.Slice(v,func(i,j int)bool{return v[i].Sadness<v[j].Sadness})
 
-	case 4:
 	
-		sort.Slice(v,func(i,j int)bool{return v[i].Anger<v[j].Anger})
-
 	}
 	return v
 }
