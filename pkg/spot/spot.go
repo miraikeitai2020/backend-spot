@@ -64,15 +64,15 @@ func comparisonValue(emotion int, _v, v model.SpotInfo) model.SpotInfo {
 			_v = v
 		}
 	case 1:
-		if _v.Natural < v.Natural {
+		if _v.Calm < v.Calm {
 			_v = v
 		}
 	case 2:
-		if _v.Sadness < v.Sadness {
+		if _v.Exciting < v.Exciting {
 			_v = v
 		}
 	case 3:
-		if _v.Anger < v.Anger {
+		if _v.Sadness < v.Sadness {
 			_v = v
 		}
 	}
@@ -86,11 +86,11 @@ func detourcomparisonValue(emotion int, v []model.DetourInfo) []model.DetourInfo
 	
 	case 1:
 		
-		sort.Slice(v,func(i,j int)bool{return v[i].Natural<v[j].Natural})
+		sort.Slice(v,func(i,j int)bool{return v[i].Calm<v[j].Calm})
 
 	case 2:
 	
-		sort.Slice(v,func(i,j int)bool{return v[i].Anger<v[j].Anger})
+		sort.Slice(v,func(i,j int)bool{return v[i].Exciting<v[j].Exciting})
 
 	case 3:
 		
