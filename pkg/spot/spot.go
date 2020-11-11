@@ -2,7 +2,7 @@ package spot
 
 import(
 	"math"
-
+	"sort"
 	"github.com/miraikeitai2020/backend-spot/pkg/server/model"
 )
 
@@ -44,7 +44,7 @@ func spotCandidates(time float64, lat, lon float64, s []model.SpotInfo) (spots [
 	return
 }
 
-func detourCandidates(time float64, lat, lon float64, s []model.Detour) (detour []model.Detour) {
+func detourCandidates(time float64, lat, lon float64, s []model.DetourInfo) (detour []model.DetourInfo) {
 	for _, v := range s {
 		i := info{
 			Latitude: v.Latitude,
@@ -59,30 +59,51 @@ func detourCandidates(time float64, lat, lon float64, s []model.Detour) (detour 
 
 func comparisonValue(emotion int, _v, v model.SpotInfo) model.SpotInfo {
 	switch emotion {
-	case 1:
+	case 0:
 		if _v.Happiness < v.Happiness {
 			_v = v
 		}
+	case 1:
+		if _v.Calm < v.Calm {
+			_v = v
+		}
 	case 2:
-		if _v.Natural < v.Natural {
+		if _v.Exciting < v.Exciting {
 			_v = v
 		}
 	case 3:
 		if _v.Sadness < v.Sadness {
 			_v = v
 		}
-	case 4:
-		if _v.Anger < v.Anger {
-			_v = v
-		}
 	}
 	return _v
 }
+func detourcomparisonValue(emotion int, v []model.DetourInfo) []model.DetourInfo {
+	switch emotion {
+	case 0:
+		
+		sort.Slice(v,func(i,j int)bool{return v[i].Happiness<v[j].Happiness})
+	
+	case 1:
+		
+		sort.Slice(v,func(i,j int)bool{return v[i].Calm<v[j].Calm})
 
+	case 2:
+	
+		sort.Slice(v,func(i,j int)bool{return v[i].Exciting<v[j].Exciting})
+
+	case 3:
+		
+		sort.Slice(v,func(i,j int)bool{return v[i].Sadness<v[j].Sadness})
+
+	
+	}
+	return v
+}
 func emotionFilter(emotion int, s []model.SpotInfo) model.Spot {
-	electionSpotInfo := s[0]
+	electionSpotInfo := s[0]	//s０番目を格納
 	for _, v := range s {
-		electionSpotInfo = comparisonValue(emotion, electionSpotInfo, v)
+		electionSpotInfo = comparisonValue(emotion, electionSpotInfo, v)	
 	}
 	return model.Spot{
 		ID: electionSpotInfo.ID,
@@ -91,12 +112,33 @@ func emotionFilter(emotion int, s []model.SpotInfo) model.Spot {
 		Longitude: electionSpotInfo.Longitude,
 	}
 }
+func detouremotionFilter(emotion int, s []model.DetourInfo) []model.Detour {
+	
+	var Detours []model.Detour
+	
+		s= detourcomparisonValue(emotion, s)//ソートをかける
+	for _,v:=range s{
+		electionDetourInfo:=model.Detour{
+			ID: v.ID,
+			Name: v.Name,
+			Image: v.Image,
+			Latitude: v.Latitude,
+			Longitude: v.Longitude,
+		}
+		Detours=append(Detours,electionDetourInfo)
 
+	}
+	
+	
+	return Detours
+}
 func Election(r model.GetSpotRequest, s []model.SpotInfo) model.Spot {
-	spots := spotCandidates(float64(r.Walktime), r.Latitude, r.Longitude, s)
+	spots := spotCandidates(float64(r.Walktime)*0.9, r.Latitude, r.Longitude, s)
 	return emotionFilter(r.Emotion, spots)
 }
 
-func DetourElection(r model.GetDetourRequest, s []model.Detour) []model.Detour {
-	return detourCandidates(float64(r.Walktime)*0.9, (r.UserLatitude + r.SpotLatitude)/2.0, (r.UserLongitude + r.SpotLongitude)/2.0, s)
+func DetourElection(r model.GetDetourRequest, s []model.DetourInfo) []model.Detour {
+	
+	detours :=  detourCandidates(float64(r.Walktime)*0.45, (r.UserLatitude + r.SpotLatitude)/2.0, (r.UserLongitude + r.SpotLongitude)/2.0, s)
+	return detouremotionFilter(r.Emotion,detours)
 }

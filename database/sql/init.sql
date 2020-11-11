@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `emotions`
 (
  `id`               VARCHAR(256),
  `happiness`        DOUBLE NOT NULL,
- `natural`          DOUBLE NOT NULL,
- `sadness`          DOUBLE NOT NULL,
- `anger`            DOUBLE NOT NULL,
+ `calm`          DOUBLE NOT NULL,
+ `exciting`          DOUBLE NOT NULL,
+ `sadness`            DOUBLE NOT NULL,
  PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
