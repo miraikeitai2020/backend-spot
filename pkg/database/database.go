@@ -42,15 +42,15 @@ func InsertDetourInfoToDataBase(db *gorm.DB, r model.AddSpotRequest) {
 	db.Exec(model.QUERY_FORMAT_ADD_DETOURS, id, r.Name, r.Description, r.Latitude, r.Longitude)
 	db.Exec(model.QUERY_FORMAT_ADD_DETOURS_IMAGE, id, []byte(r.Image))
 	switch r.Emotion {
-	case 1:
+	case 0:
 		db.Exec(model.QUERY_FORMAT_ADD_DETOURS_EMOTIONS, id,0.6,0,0,0)
-	case 2:
+	case 1:
 		db.Exec(model.QUERY_FORMAT_ADD_DETOURS_EMOTIONS, id,0,0.6,0,0)
 
-	case 3:
+	case 2:
 		db.Exec(model.QUERY_FORMAT_ADD_DETOURS_EMOTIONS, id,0,0,0.6,0)
 
-	case 4:
+	case 3:
 		db.Exec(model.QUERY_FORMAT_ADD_DETOURS_EMOTIONS, id,0,0,0,0.6)
 
 	}
